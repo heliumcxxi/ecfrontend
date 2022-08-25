@@ -29,10 +29,10 @@ app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/checkout", stripeRoute);
 
-app.use(express.static(path.join(__dirname, "/ecClient")));
+app.use(express.static(path.join(__dirname, "ecClient/build")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/ecClient/build", "index.html"));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "ecClient/build", "index.html"));
 });
 
 app.listen(process.env.PORT || 4000, () => {
