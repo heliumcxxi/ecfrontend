@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -28,9 +29,7 @@ app.use("/api/products", productRoute);
 app.use("/api/carts", cartRoute);
 app.use("/api/orders", orderRoute);
 app.use("/checkout", stripeRoute);
-
 app.use(express.static(path.join(__dirname, "ecClient/build")));
-
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "ecClient/build", "index.html"));
 });
