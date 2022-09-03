@@ -5,10 +5,10 @@ import Product from "./Product";
 import axios from "axios";
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 1rem 2rem;
+  gap: 1rem;
 `;
 
 const Products = ({ cat, filters, sort }) => {
@@ -40,20 +40,6 @@ const Products = ({ cat, filters, sort }) => {
         )
       );
   }, [products, cat, filters]);
-
-  // useEffect(() => {
-  //   if (products.length > 0) {
-  //     setFilteredProducts(
-  //       products.filter((item) => {
-  //         return item.categories.map((itemInCat) => {
-  //           if (itemInCat === cat) {
-  //             return item;
-  //           }
-  //         });
-  //       })
-  //     );
-  //   }
-  // }, [products, cat, filters]);
 
   useEffect(() => {
     if (sort === "newest") {
