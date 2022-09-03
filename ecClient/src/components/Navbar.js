@@ -47,7 +47,7 @@ const Center = styled.div`
   justify-content: center;
   text-align: center;
   padding: 1rem;
-  font: 1.5rem "Fira Sans", sans-serif;
+  font-size: 1.5rem;
   font-weight: 700;
 `;
 

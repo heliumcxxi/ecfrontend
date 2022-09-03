@@ -9,6 +9,7 @@ import Products from "../components/Products";
 const Container = styled.div``;
 const Title = styled.h1`
   margin: 2rem;
+  text-transform: capitalize;
 `;
 const FilterContainer = styled.div`
   display: flex;
@@ -24,10 +25,10 @@ const Select = styled.select`
   border-style: none;
   cursor: pointer;
   text-transform: capitalize;
+  transition: all 0.1s ease;
 
   &:hover {
-    font-weight: 700;
-    border-bottom: 1px solid #1882a8;
+    border-bottom: 1px solid var(--blue);
   }
 
   &:focus {

@@ -20,15 +20,15 @@ const Arrow = styled.div`
   top: 0;
   bottom: 0;
   margin: auto;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.direction === "left" && "20px"};
+  right: ${(props) => props.direction === "right" && "20px"};
   cursor: pointer;
   z-index: 2;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  background-color: yellow;
+  background-color: var(--white);
   height: 100%;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
   transition: all 1.5s ease;
@@ -43,6 +43,7 @@ const Slide = styled.div`
 
 const ImgContainer = styled.div`
   height: 100%;
+  width: 97%;
   background-color: lightblue;
   display: flex;
   align-items: center;
@@ -88,10 +89,12 @@ const Slider = () => {
 
   return (
     <Container>
+      {/* change direction */}
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
+        {/* auto slide homepage pic */}
         {sliderItems.map((item) => (
           <Slide key={item.id}>
             <ImgContainer>
@@ -103,6 +106,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
+      {/* change direction */}
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRightOutlined />
       </Arrow>

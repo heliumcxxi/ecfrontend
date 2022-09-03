@@ -9,3 +9,47 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button{
+  height: 2rem;
+  width: 10rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 3px;
+  transition: all 0.1s ease;
+}
+
+button:hover,
+button:focus {
+  border: 2px solid var(--white);
+}
+
+:root{
+   /* Font sizes */
+   --regular-font-size: 18px;
+   --primary-title-font-size: 34px;
+   --secondary-title-font-size: 24px;
+ 
+   /* Font weights */
+   --regular-font-weight: 400;
+   --medium-font-weight: 500;
+   --semi-bold-font-weight: 600;
+   --bold-font-weight: 700;
+ 
+   /* Colors */
+   --black: rgb(0, 0, 0);
+   --white: rgb(255, 255, 255);
+   --background-color: rgb(218, 217, 216);
+   --pink: #ffd2da;
+   --blue: #84d5cd;
+ 
+   /* Text color */
+   --primary-text-color: var(--black);
+ 
+   /* Paddings */
+   --content-space: 24px;
+ 
+   /* Opacities */
+   --primary-text-opacity: 0.87;
+}
