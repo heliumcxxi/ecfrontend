@@ -78,13 +78,20 @@ const Newsletter = () => {
       </EmailContainer>
       <IconContainer>
         <Icon>
-          <FacebookRounded />
+          <Instagram
+            onClick={() =>
+              window.open("https://www.instagram.com/jewelry.quest/?hl=en")
+            }
+          />
         </Icon>
         <Icon>
-          <Instagram />
-        </Icon>
-        <Icon>
-          <WhatsApp />
+          <WhatsApp
+            onClick={() =>
+              window.open(
+                "https://web.whatsapp.com/send?phone=85291471893&text=Hello"
+              )
+            }
+          />
         </Icon>
       </IconContainer>
     </Container>

@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Announcement = () => {
-  return <Container>Your announcements show in here</Container>;
+  return <Container>Free and East Return</Container>;
 };
 
 export default Announcement;
