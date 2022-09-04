@@ -98,8 +98,12 @@ const Navbar = () => {
         <Center>Jewellry Quest</Center>
       </StyledLink>
       <Right>
-        <MenuItem>Register</MenuItem>
-        <MenuItem>Sign In</MenuItem>
+        <MenuItem>
+          <StyledLink to={"/register"}>Register</StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink to={"/login"}>Sign In</StyledLink>
+        </MenuItem>
         <MenuItem>
           <StyledLink to="/cart">
             <Badge badgeContent={quantity} color="primary">

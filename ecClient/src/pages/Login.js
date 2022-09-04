@@ -144,7 +144,7 @@ const Login = () => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
-            <StyledLink>Forgot password?</StyledLink>
+            <StyledLink to={"/"}>Forgot password?</StyledLink>
             <Button onClick={handleClick} disabled={isFetching}>
               Login
             </Button>

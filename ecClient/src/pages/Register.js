@@ -87,7 +87,7 @@ const Register = () => {
           <Input placeholder="Last Name"></Input>
           <Input placeholder="Email"></Input>
           <Button>Register</Button>
-          <StyledLink>Have an account? Sign In</StyledLink>
+          <StyledLink to={"/"}>Have an account? Sign In</StyledLink>
         </Form>
       </RegContainer>
       <Newsletter />
