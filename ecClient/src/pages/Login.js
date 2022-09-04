@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Container = styled.div``;
 const LoginContainer = styled.div`
@@ -56,10 +57,18 @@ const Input = styled.input`
   }
 `;
 
-const Link = styled.a`
-  font-size: 0.7rem;
-  cursor: pointer;
-  margin: 1rem;
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: inherit;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: inherit;
+    text-decoration: inherit;
+  }
 `;
 
 const Button = styled.button`
@@ -135,7 +144,7 @@ const Login = () => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
-            <Link>Forgot password?</Link>
+            <StyledLink>Forgot password?</StyledLink>
             <Button onClick={handleClick} disabled={isFetching}>
               Login
             </Button>

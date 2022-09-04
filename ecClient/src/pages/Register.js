@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
@@ -41,10 +42,18 @@ const Input = styled.input`
   }
 `;
 
-const Link = styled.a`
-  font-size: 0.7rem;
-  cursor: pointer;
-  margin: 1rem;
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: inherit;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: inherit;
+    text-decoration: inherit;
+  }
 `;
 
 const Button = styled.button`
@@ -78,7 +87,7 @@ const Register = () => {
           <Input placeholder="Last Name"></Input>
           <Input placeholder="Email"></Input>
           <Button>Register</Button>
-          <Link>Have an account? Sign In</Link>
+          <StyledLink>Have an account? Sign In</StyledLink>
         </Form>
       </RegContainer>
       <Newsletter />

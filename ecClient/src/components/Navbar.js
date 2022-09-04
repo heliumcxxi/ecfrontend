@@ -40,6 +40,20 @@ const SearchBar = styled.input`
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: inherit;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: inherit;
+    text-decoration: inherit;
+  }
+`;
+
 const Center = styled.div`
   display: flex;
   flex: 1;
@@ -47,8 +61,9 @@ const Center = styled.div`
   justify-content: center;
   text-align: center;
   padding: 1rem;
-  font-size: 1.5rem;
+  font-size: var(--secondary-title-font-size);
   font-weight: 700;
+  text-decoration: none;
 `;
 
 const Right = styled.div`
@@ -79,17 +94,18 @@ const Navbar = () => {
           <SearchOutlined style={{ color: "gray", cursor: "pointer" }} />
         </SearchContainer>
       </Left>
-      <Center>Jewellry Quest</Center>
-
+      <StyledLink to="/">
+        <Center>Jewellry Quest</Center>
+      </StyledLink>
       <Right>
         <MenuItem>Register</MenuItem>
         <MenuItem>Sign In</MenuItem>
         <MenuItem>
-          <Link to="/cart">
+          <StyledLink to="/cart">
             <Badge badgeContent={quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
-          </Link>
+          </StyledLink>
         </MenuItem>
       </Right>
     </Container>

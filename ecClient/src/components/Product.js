@@ -54,6 +54,20 @@ const Image = styled.img`
   z-index: 2;
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: inherit;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: inherit;
+    text-decoration: inherit;
+  }
+`;
+
 const Icon = styled.div`
   padding: 0.5rem;
   transition: all 0.3s ease;
@@ -84,9 +98,9 @@ const Product = ({ item }) => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link to={`/product/${item._id}`}>
+          <StyledLink to={`/product/${item._id}`}>
             <SearchOutlined />
-          </Link>
+          </StyledLink>
         </Icon>
         <Icon theme={theme}>
           <FavoriteBorderOutlined />

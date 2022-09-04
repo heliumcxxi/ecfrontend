@@ -26,19 +26,19 @@ export const categories = [
   {
     id: 1,
     img: require("./images/IMG_4537.JPG"),
-    title: "Stand Out In Your Own Way",
+    title: "stand out in your own way",
     cat: "earrings",
   },
   {
     id: 2,
     img: require("./images/IMG_4538.JPG"),
-    title: "Love Your Way",
+    title: "love your way",
     cat: "necklace",
   },
   {
     id: 3,
     img: require("./images/IMG_4623.JPG"),
-    title: "Engravable Styles",
+    title: "engravable styles",
     cat: "ring",
   },
 ];
