@@ -29,7 +29,7 @@ const BottomInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: aliceblue;
+  background-color: var(--light-pink);
   margin-left: 8rem;
   margin-bottom: 3rem;
   width: 70%;

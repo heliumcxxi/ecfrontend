@@ -48,6 +48,7 @@ button:focus {
    --white: rgb(255, 255, 255);
    --background-color: rgb(218, 217, 216);
    --pink: #ffd2da;
+   --light-pink:#ffd2da46;
    --blue: #84d5cd;
  
    /* Text color */

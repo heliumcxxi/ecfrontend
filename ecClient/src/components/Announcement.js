@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: var(--blue);
+  background-color: var(--pink);
   display: flex;
   justify-content: center;
   align-items: center;

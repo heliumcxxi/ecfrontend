@@ -33,7 +33,7 @@ const Container = styled.div`
   justify-content: center;
   margin: 5px;
   position: relative;
-  background-color: aliceblue;
+  background-color: var(--light-pink);
   border-radius: 10px;
 
   &:hover ${InfoContainer} {

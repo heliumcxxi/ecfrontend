@@ -28,7 +28,7 @@ const Select = styled.select`
   transition: all 0.1s ease;
 
   &:hover {
-    border-bottom: 1px solid var(--blue);
+    border-bottom: 1px solid var(--pink);
   }
 
   &:focus {

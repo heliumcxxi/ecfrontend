@@ -3,6 +3,39 @@ import { Badge } from "@mui/material";
 import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SearchBar from "../components/SearchBar";
+import { sliderItems } from "../data";
+
+const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+
+  return (
+    <Container>
+      <Left>
+        <Language style={{ color: "gray" }}>EN</Language>
+        <SearchBar placeholder="search product here" data={sliderItems} />
+      </Left>
+      <StyledLink to="/">
+        <Center>Jewelry Quest</Center>
+      </StyledLink>
+      <Right>
+        <MenuItem>
+          <StyledLink to={"/register"}>Register</StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink to={"/login"}>Sign In</StyledLink>
+        </MenuItem>
+        <MenuItem>
+          <StyledLink to="/cart">
+            <Badge badgeContent={quantity} color="primary">
+              <ShoppingCartOutlined />
+            </Badge>
+          </StyledLink>
+        </MenuItem>
+      </Right>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   height: 4rem;
@@ -22,22 +55,6 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 1.2rems;
   cursor: pointer;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  border: 1px solid gray;
-  margin: 1rem;
-`;
-
-const SearchBar = styled.input`
-  border: none;
-  width: 150px;
-
-  &:focus {
-    outline: none;
-  }
 `;
 
 const StyledLink = styled(Link)`
@@ -79,41 +96,5 @@ const MenuItem = styled.div`
   size: 1.2rem;
   margin: 1rem;
 `;
-
-// currently no wrapper class
-
-const Navbar = () => {
-  const quantity = useSelector((state) => state.cart.quantity);
-
-  return (
-    <Container>
-      <Left>
-        <Language style={{ color: "gray" }}>EN</Language>
-        <SearchContainer>
-          <SearchBar placeholder="search" />
-          <SearchOutlined style={{ color: "gray", cursor: "pointer" }} />
-        </SearchContainer>
-      </Left>
-      <StyledLink to="/">
-        <Center>Jewellry Quest</Center>
-      </StyledLink>
-      <Right>
-        <MenuItem>
-          <StyledLink to={"/register"}>Register</StyledLink>
-        </MenuItem>
-        <MenuItem>
-          <StyledLink to={"/login"}>Sign In</StyledLink>
-        </MenuItem>
-        <MenuItem>
-          <StyledLink to="/cart">
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </StyledLink>
-        </MenuItem>
-      </Right>
-    </Container>
-  );
-};
 
 export default Navbar;

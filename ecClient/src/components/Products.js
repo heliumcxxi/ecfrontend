@@ -29,7 +29,6 @@ const Products = ({ cat, filters, sort }) => {
     getProducts();
   }, [cat]);
 
-  console.log(process.env.REACT_APP_CLIENT_URL);
   useEffect(() => {
     cat &&
       setFilteredProducts(

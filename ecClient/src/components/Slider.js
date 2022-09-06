@@ -44,7 +44,7 @@ const Slide = styled.div`
 const ImgContainer = styled.div`
   height: 100%;
   width: 97%;
-  background-color: lightblue;
+  background-color: var(--light-pink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,8 @@ const Title = styled.h1`
 const Desc = styled.p`
   position: absolute;
   left: 65%;
-  bottom: 45%;
+  bottom: 43%;
+  width: 400px;
 `;
 
 const Button = styled.button`
