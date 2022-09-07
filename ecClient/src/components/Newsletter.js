@@ -64,7 +64,7 @@ const Newsletter = () => {
   return (
     <Container>
       <InfoContainer>
-        <Title>Get The Latest From Jewellry Quest!</Title>
+        <Title>Get The Latest From Jewelry Quest!</Title>
         <Desc>
           Be the first to hear about new arrivals, promotions, style inspiration
           and exclusive sneak peeks

@@ -4,7 +4,6 @@ import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
-import { sliderItems } from "../data";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -13,7 +12,7 @@ const Navbar = () => {
     <Container>
       <Left>
         <Language style={{ color: "gray" }}>EN</Language>
-        <SearchBar placeholder="search product here" data={sliderItems} />
+        <SearchBar placeholder="search product here" />
       </Left>
       <StyledLink to="/">
         <Center>Jewelry Quest</Center>

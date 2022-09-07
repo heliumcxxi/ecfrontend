@@ -3,10 +3,24 @@ import { publicRequest } from "../../requestMethod";
 import { useEffect, useState } from "react";
 import { SearchOutlined } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
+import axios from "axios";
 
-function SearchBar({ placeholder, data }) {
+function SearchBar({ placeholder }) {
+  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [word, setWord] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_CLIENT_URL}/api/products`
+        );
+        setData(res.data);
+      } catch (err) {}
+    };
+    getData();
+  }, []);
 
   const handleSearch = (event) => {
     // looking up input value
@@ -52,7 +66,7 @@ function SearchBar({ placeholder, data }) {
       {filteredData.length != 0 && (
         <div className="search-result">
           {/* limit search result up to 5 to reduce data load */}
-          {filteredData.slice(0, 4).map((value) => {
+          {filteredData.slice(0, 5).map((value) => {
             return <p>{value.title}</p>;
           })}
         </div>
