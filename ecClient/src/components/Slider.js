@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { sliderItems } from "../data";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -70,6 +71,20 @@ const Desc = styled.p`
   bottom: 45%;
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: inherit;
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: inherit;
+    text-decoration: inherit;
+  }
+`;
+
 const Button = styled.button`
   text-transform: uppercase;
   position: absolute;
@@ -101,7 +116,9 @@ const Slider = () => {
               <Image src={item.img} />
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>shop now</Button>
+              <StyledLink to={"/products"}>
+                <Button>shop now</Button>
+              </StyledLink>
             </ImgContainer>
           </Slide>
         ))}
