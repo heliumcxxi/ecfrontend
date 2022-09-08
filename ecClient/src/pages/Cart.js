@@ -8,8 +8,102 @@ import img from "../images/IMG_5787.png";
 import { Visa } from "../data";
 import { useSelector } from "react-redux";
 
+const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+
+  const checkOut = () => {
+    fetch(`${process.env.CLIENT_URL}/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cart),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return res.json().then((json) => Promise.reject(json));
+      })
+      .then(({ url }) => {
+        window.location = url;
+      })
+      .catch((e) => {
+        console.error(e.error);
+      });
+  };
+
+  return (
+    <>
+      <Announcement />
+      <Navbar />
+      <Wrapper>
+        <TopInfo>
+          <Title>Your Bag</Title>
+        </TopInfo>
+        <BottomInfo>
+          <Left>
+            {cart.products.map((product) => (
+              <Product key={product._id}>
+                <ProductImg src={product.img} />
+                <ProductInfo>
+                  <ProductTitle>{product.title}</ProductTitle>
+                  <ProductId>{product._id}</ProductId>
+                  <ProductMaterial>{product.color}</ProductMaterial>
+                  <ProductColor>{product.size}</ProductColor>
+                  <RemoveButton>
+                    <DeleteOutline fontSize="small" />
+                    Remove
+                  </RemoveButton>
+                </ProductInfo>
+                <ProductAmountInfo>
+                  <ProductPrice>{product.price}</ProductPrice>
+                  <ProductAmount>
+                    <Add fontSize="small" />
+                    <Amount>{product.quantity}</Amount>
+                    <Remove fontSize="small" />
+                  </ProductAmount>
+                </ProductAmountInfo>
+              </Product>
+            ))}
+          </Left>
+
+          <Right>
+            <Summary>
+              <OrderSummary>
+                <SummaryTitle> Order Summary</SummaryTitle>
+              </OrderSummary>
+              <SummaryItem>
+                <SummaryItemText>Subtotal</SummaryItemText>
+                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Estimated Shipping</SummaryItemText>
+                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Shipping Discount</SummaryItemText>
+                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem type="total">
+                <SummaryItemText>Total</SummaryItemText>
+                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <Button onClick={checkOut}>CHECKOUT NOW</Button>
+            </Summary>
+            {/* <Payment>
+              We accept
+              <Image src={Visa} />
+               <Image src={Master} /> 
+            </Payment> } */}
+          </Right>
+        </BottomInfo>
+      </Wrapper>
+      <Newsletter />
+    </>
+  );
+};
+
 const Wrapper = styled.div`
-  background-color: aliceblue;
+  background-color: var(--light-pink);
   height: auto;
   display: flex;
   flex-direction: column;
@@ -21,27 +115,33 @@ const TopInfo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 3rem;
 `;
 
-const Title = styled.h2``;
+const Title = styled.h2`
+  margin-top: 1rem;
+`;
 
 const BottomInfo = styled.div`
   display: flex;
+  height: 100%;
   justify-content: center;
-  align-items: flex-start;
-  background-color: var(--light-pink);
-  margin-left: 8rem;
-  margin-bottom: 3rem;
-  width: 70%;
+  align-items: center;
+  background-color: var(--white);
+  margin: 2rem auto 5rem;
+  width: 80%;
+  border-radius: 5px;
 `;
 
 const Left = styled.div`
   flex: 2;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: white;
+  margin-left: 1rem;
 `;
 
 const Product = styled.div`
@@ -166,100 +266,6 @@ const Payment = styled.div`
 `;
 
 const Image = styled.img``;
-
-const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-
-  const checkOut = () => {
-    fetch(`${process.env.CLIENT_URL}/checkout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cart),
-    })
-      .then((res) => {
-        if (res.ok) return res.json();
-        return res.json().then((json) => Promise.reject(json));
-      })
-      .then(({ url }) => {
-        window.location = url;
-      })
-      .catch((e) => {
-        console.error(e.error);
-      });
-  };
-
-  return (
-    <>
-      <Announcement />
-      <Navbar />
-      <Wrapper>
-        <TopInfo>
-          <Title>Your Bag</Title>
-        </TopInfo>
-        <BottomInfo>
-          <Left>
-            {cart.products.map((product) => (
-              <Product key={product._id}>
-                <ProductImg src={product.img} />
-                <ProductInfo>
-                  <ProductTitle>{product.title}</ProductTitle>
-                  <ProductId>{product._id}</ProductId>
-                  <ProductMaterial>{product.color}</ProductMaterial>
-                  <ProductColor>{product.size}</ProductColor>
-                  <RemoveButton>
-                    <DeleteOutline fontSize="small" />
-                    Remove
-                  </RemoveButton>
-                </ProductInfo>
-                <ProductAmountInfo>
-                  <ProductPrice>{product.price}</ProductPrice>
-                  <ProductAmount>
-                    <Add fontSize="small" />
-                    <Amount>{product.quantity}</Amount>
-                    <Remove fontSize="small" />
-                  </ProductAmount>
-                </ProductAmountInfo>
-              </Product>
-            ))}
-          </Left>
-
-          <Right>
-            <Summary>
-              <OrderSummary>
-                <SummaryTitle> Order Summary</SummaryTitle>
-              </OrderSummary>
-              <SummaryItem>
-                <SummaryItemText>Subtotal</SummaryItemText>
-                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Estimated Shipping</SummaryItemText>
-                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              <Button onClick={checkOut}>CHECKOUT NOW</Button>
-            </Summary>
-            <Payment>
-              We accept
-              <Image src={Visa} />
-              {/* <Image src={Master} /> */}
-            </Payment>
-          </Right>
-        </BottomInfo>
-      </Wrapper>
-      <Newsletter />
-    </>
-  );
-};
 
 export default Cart;
 
