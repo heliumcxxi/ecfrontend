@@ -1,9 +1,73 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material";
-import React from "react";
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  NightShelter,
+} from "@mui/icons-material";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState } from "react";
 import { sliderItems } from "../data";
 import { Link } from "react-router-dom";
+
+// change autoplay speed
+const delay = 3000;
+
+const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  // change slide manually
+  const handleClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
+
+  // change slide automatically
+  useEffect(() => {
+    setTimeout(
+      () =>
+        setSlideIndex((prevIndex) =>
+          prevIndex === sliderItems.length - 1 ? 0 : prevIndex + 1
+        ),
+      delay
+    );
+    return () => {};
+  }, [slideIndex]);
+
+  return (
+    <Container>
+      {/* change direction, arrow gone if auto */}
+      {!delay && (
+        <Arrow direction="left" onClick={() => handleClick("left")}>
+          <ArrowLeftOutlined />
+        </Arrow>
+      )}
+      <Wrapper slideIndex={slideIndex}>
+        {/* auto slide homepage pic */}
+        {sliderItems.map((item) => (
+          <Slide key={item.id}>
+            <ImgContainer>
+              <Image src={item.img} />
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
+              <StyledLink to={"/products"}>
+                <Button>shop now</Button>
+              </StyledLink>
+            </ImgContainer>
+          </Slide>
+        ))}
+      </Wrapper>
+      {/* change direction, arrow gone if auto*/}
+      {!delay && (
+        <Arrow direction="right" onClick={() => handleClick("right")}>
+          <ArrowRightOutlined />
+        </Arrow>
+      )}
+    </Container>
+  );
+};
 
 const Container = styled.div`
   width: 100%;
@@ -45,7 +109,7 @@ const Slide = styled.div`
 const ImgContainer = styled.div`
   height: 100%;
   width: 97%;
-  background-color: lightblue;
+  background-color: var(--light-pink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,44 +155,5 @@ const Button = styled.button`
   left: 65%;
   bottom: 40%;
 `;
-
-const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
-    } else {
-      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
-    }
-  };
-
-  return (
-    <Container>
-      {/* change direction */}
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowLeftOutlined />
-      </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        {/* auto slide homepage pic */}
-        {sliderItems.map((item) => (
-          <Slide key={item.id}>
-            <ImgContainer>
-              <Image src={item.img} />
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <StyledLink to={"/products"}>
-                <Button>shop now</Button>
-              </StyledLink>
-            </ImgContainer>
-          </Slide>
-        ))}
-      </Wrapper>
-      {/* change direction */}
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowRightOutlined />
-      </Arrow>
-    </Container>
-  );
-};
 
 export default Slider;
