@@ -1,12 +1,10 @@
-import { Add, DeleteOutline, Remove } from "@mui/icons-material";
-import { createTheme } from "@mui/system";
+import { Add, DeleteOutline, Remove, WhatsApp } from "@mui/icons-material";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
-import img from "../images/IMG_5787.png";
-import { Visa } from "../data";
 import { useSelector } from "react-redux";
+import { PayMethods } from "../data";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -46,7 +44,7 @@ const Cart = () => {
                 <ProductImg src={product.img} />
                 <ProductInfo>
                   <ProductTitle>{product.title}</ProductTitle>
-                  <ProductId>{product._id}</ProductId>
+
                   <ProductMaterial>{product.color}</ProductMaterial>
                   <ProductColor>{product.size}</ProductColor>
                   <RemoveButton>
@@ -87,13 +85,30 @@ const Cart = () => {
                 <SummaryItemText>Total</SummaryItemText>
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
-              <Button onClick={checkOut}>CHECKOUT NOW</Button>
             </Summary>
-            {/* <Payment>
-              We accept
-              <Image src={Visa} />
-               <Image src={Master} /> 
-            </Payment> } */}
+
+            <PayMethodsSummary>
+              <PaymentText>Check out with Credit/Debit Card</PaymentText>
+              <Button onClick={checkOut}>checkout now</Button>
+              <br />
+              <PaymentText>We also accept</PaymentText>
+              <Payment>
+                {PayMethods.map((x) => (
+                  <Image src={x.img} />
+                ))}
+              </Payment>
+              <PaymentText>
+                Contact us for alternative payments
+                <WhatsApp
+                  onClick={() =>
+                    window.open(
+                      "https://web.whatsapp.com/send?phone=85291471893&text=Hello"
+                    )
+                  }
+                  style={{ cursor: "pointer" }}
+                />{" "}
+              </PaymentText>
+            </PayMethodsSummary>
           </Right>
         </BottomInfo>
       </Wrapper>
@@ -119,7 +134,7 @@ const TopInfo = styled.div`
 `;
 
 const Title = styled.h2`
-  margin-top: 1rem;
+  margin-top: 2rem;
 `;
 
 const BottomInfo = styled.div`
@@ -247,26 +262,31 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-  border-style: none;
-  cursor: pointer;
+  margin-left: 30%;
+`;
 
-  &:hover {
-    background-color: #1882a8;
-  }
+const PayMethodsSummary = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: auto;
 `;
 
 const Payment = styled.div`
-  display: flex;
-  justify-content: center;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-items: center;
 `;
 
-const Image = styled.img``;
+const PaymentText = styled.div`
+  margin: 1rem auto;
+`;
+
+const Image = styled.img`
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+`;
 
 export default Cart;
-
-// Investigate img import problem https://stackoverflow.com/questions/44607396/importing-multiple-files-in-react

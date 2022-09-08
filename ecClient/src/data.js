@@ -79,10 +79,30 @@ export const popularProducts = [
   },
 ];
 
-export const Master = require("./images/Mastercard.svg");
-export const Visa = require("./images/Visa.svg");
-export const AE = require("./images/AmericanExpress.svg");
-export const Paypal = require("./images/PayPal.svg.png");
-export const Payme = require("./images/payme-logo.png");
-export const Wechat = require("./images/wechat.png");
-export const Alipay = require("./images/Alipay.svg");
+export const PayMethods = [
+  {
+    id: 1,
+    title: "Paypal",
+    img: require("./images/PayPal.png"),
+  },
+  {
+    id: 2,
+    title: "PayMe",
+    img: require("./images/payme.png"),
+  },
+  {
+    id: 3,
+    title: "Alipay",
+    img: require("./images/alipay.png"),
+  },
+  {
+    id: 4,
+    title: "WeChat",
+    img: require("./images/wechat.png"),
+  },
+  {
+    id: 5,
+    title: "FPS",
+    img: require("./images/FPS.png"),
+  },
+];
