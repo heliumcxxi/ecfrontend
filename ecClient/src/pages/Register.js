@@ -5,14 +5,40 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import img from "../images/IMG_8323.JPG";
 
+const Register = () => {
+  return (
+    <Container>
+      <Announcement />
+      <Navbar />
+      <RegContainer>
+        <Title>Create an account</Title>
+        <Form>
+          <Input placeholder="First Name"></Input>
+          <Input placeholder="Last Name"></Input>
+          <Input placeholder="Email"></Input>
+          <StyledLink to={"/"}>
+            <Button>Register</Button>
+          </StyledLink>
+          <StyledLink to={"/login"} style={{ color: "white" }}>
+            Have an account? Sign In
+          </StyledLink>
+        </Form>
+      </RegContainer>
+      <Newsletter />
+    </Container>
+  );
+};
+
+export default Register;
+
 const Container = styled.div``;
 const RegContainer = styled.div`
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.1)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
     url(${img});
   background-position: 15% 55%;
   height: 600px;
-  width: 900px;
-  border: 1px solid black;
+  width: 100vw;
+  border: 1px solid var(--grey);
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
@@ -45,6 +71,7 @@ const Input = styled.input`
 const StyledLink = styled(Link)`
   color: inherit;
   text-decoration: inherit;
+  margin-bottom: 1rem;
 
   &:focus,
   &:hover,
@@ -64,35 +91,9 @@ const Button = styled.button`
   border-style: none;
   cursor: pointer;
   margin-top: 1rem;
-
-  &:hover {
-    background-color: #1882a8;
-  }
 `;
 
 const Image = styled.img`
   height: 70%;
-  width: 70%;
+  width: 100%;
 `;
-
-const Register = () => {
-  return (
-    <Container>
-      <Announcement />
-      <Navbar />
-      <RegContainer>
-        <Title>Create an account</Title>
-        <Form>
-          <Input placeholder="First Name"></Input>
-          <Input placeholder="Last Name"></Input>
-          <Input placeholder="Email"></Input>
-          <Button>Register</Button>
-          <StyledLink to={"/"}>Have an account? Sign In</StyledLink>
-        </Form>
-      </RegContainer>
-      <Newsletter />
-    </Container>
-  );
-};
-
-export default Register;
