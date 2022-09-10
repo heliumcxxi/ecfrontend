@@ -12,7 +12,7 @@ const Container = styled.h1`
 const Success = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.replace(process.env.REACT_APP_CLIENT_URL);
+      window.location.replace("https://jquest.vercel.app/");
     }, 3000);
     return () => clearTimeout(timer);
   }, []);

@@ -10,7 +10,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
 
   const checkOut = () => {
-    fetch(`${process.env.CLIENT_URL}/checkout`, {
+    fetch(`${process.env.REACT_APP_CLIENT_URL}/checkout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -89,12 +89,13 @@ const Cart = () => {
 
             <PayMethodsSummary>
               <PaymentText>Check out with Credit/Debit Card</PaymentText>
-              <Button onClick={checkOut}>checkout now</Button>
+              <Button onClick={checkOut}>Check out</Button>
+
               <br />
               <PaymentText>We also accept</PaymentText>
               <Payment>
                 {PayMethods.map((x) => (
-                  <Image src={x.img} />
+                  <Image key={x.id} src={x.img} />
                 ))}
               </Payment>
               <PaymentText>
@@ -106,7 +107,7 @@ const Cart = () => {
                     )
                   }
                   style={{ cursor: "pointer" }}
-                />{" "}
+                />
               </PaymentText>
             </PayMethodsSummary>
           </Right>
