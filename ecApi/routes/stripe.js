@@ -23,11 +23,12 @@ router.post("/", async (req, res) => {
       };
     });
 
+    // create checkout session
     const session = await stripe.checkout.sessions.create({
-      line_items: allProducts,
-      mode: "payment",
       success_url: `${process.env.REACT_APP_CLIENT_URL}/success`,
       cancel_url: process.env.REACT_APP_CLIENT_URL,
+      line_items: allProducts,
+      mode: "payment",
     });
 
     res.json({ url: session.url });
