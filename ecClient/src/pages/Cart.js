@@ -98,16 +98,15 @@ const Cart = () => {
                   <Image key={x.id} src={x.img} />
                 ))}
               </Payment>
-              <PaymentText>
-                Contact us for alternative payments
-                <WhatsApp
-                  onClick={() =>
-                    window.open(
-                      "https://web.whatsapp.com/send?phone=85291471893&text=Hello"
-                    )
-                  }
-                  style={{ cursor: "pointer" }}
-                />
+              <PaymentText
+                onClick={() =>
+                  window.open(
+                    "https://web.whatsapp.com/send?phone=85291471893&text=Hello"
+                  )
+                }
+                style={{ cursor: "pointer" }}
+              >
+                Click here for alternative payments
               </PaymentText>
             </PayMethodsSummary>
           </Right>
