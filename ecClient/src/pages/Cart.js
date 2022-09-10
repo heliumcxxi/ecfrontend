@@ -44,7 +44,6 @@ const Cart = () => {
                 <ProductImg src={product.img} />
                 <ProductInfo>
                   <ProductTitle>{product.title}</ProductTitle>
-
                   <ProductMaterial>{product.color}</ProductMaterial>
                   <ProductColor>{product.size}</ProductColor>
                   <RemoveButton>
@@ -53,11 +52,11 @@ const Cart = () => {
                   </RemoveButton>
                 </ProductInfo>
                 <ProductAmountInfo>
-                  <ProductPrice>{product.price}</ProductPrice>
+                  <ProductPrice>$ {product.price}</ProductPrice>
                   <ProductAmount>
-                    <Add fontSize="small" />
-                    <Amount>{product.quantity}</Amount>
                     <Remove fontSize="small" />
+                    <Amount>{product.quantity}</Amount>
+                    <Add fontSize="small" />
                   </ProductAmount>
                 </ProductAmountInfo>
               </Product>
@@ -151,6 +150,7 @@ const BottomInfo = styled.div`
 const Left = styled.div`
   flex: 2;
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,33 +168,43 @@ const Product = styled.div`
 `;
 
 const ProductImg = styled.img`
+  flex: 1;
   height: 25%;
   width: 25%;
 `;
 
 const ProductInfo = styled.div`
   display: flex;
+  flex: 2;
   flex-direction: column;
   margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
 `;
 
-const ProductTitle = styled.h5``;
+const ProductTitle = styled.h4`
+  margin-top: 3rem;
+  margin-left: 0.5rem;
+`;
 
 const ProductId = styled.span`
   font-size: 0.8rem;
-  margin: 0.3rem;
+  margin-top: 0.5rem;
   color: grey;
 `;
 
 const ProductMaterial = styled.span`
   font-size: 0.8rem;
-  margin: 0.3rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
   color: grey;
+  text-transform: capitalize;
 `;
 
 const ProductColor = styled.span`
   font-size: 0.8rem;
-  margin: 0.3rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
   padding-bottom: 1rem;
   color: grey;
 `;
@@ -208,15 +218,15 @@ const RemoveButton = styled.a`
 
 const ProductAmountInfo = styled.div`
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-left: 10rem;
 `;
 
 const ProductPrice = styled.div`
   font-size: 1.3rem;
-  margin: 2rem;
+  margin-top: 2rem;
 `;
 
 const ProductAmount = styled.div`
