@@ -7,6 +7,68 @@ import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  };
+
+  return (
+    <Container>
+      <Announcement />
+      <Navbar />
+      <LoginContainer>
+        <Left>
+          <Title>already a member?</Title>
+          <Form>
+            <Input
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+            ></Input>
+            <Input
+              placeholder="Password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
+            <StyledLink to={"/"}>Forgot password?</StyledLink>
+            <Button onClick={handleClick} disabled={isFetching}>
+              Login
+            </Button>
+            {error && (
+              <Error>
+                Your email address and password combination do not match any of
+                our accounts.
+              </Error>
+            )}
+          </Form>
+        </Left>
+        <Right>
+          <Image src={require("../images/IMG_5826.png")} />
+          <InfoContainer>
+            <JoinHeader>join and get all the benefits</JoinHeader>
+            <JoinDesc>
+              As a Jewelry Quest member, you can enjoy free shipping, birthday
+              discount, easy checkout, exclusive offers, special treats, and
+              much more.
+            </JoinDesc>
+            <StyledLink to={"/register"}>
+              <Button>Become a Member</Button>
+            </StyledLink>
+          </InfoContainer>
+        </Right>
+      </LoginContainer>
+      <Newsletter />
+    </Container>
+  );
+};
+
+export default Login;
+
 const Container = styled.div``;
 const LoginContainer = styled.div`
   height: 600px;
@@ -115,63 +177,3 @@ const JoinDesc = styled.span`
   margin-bottom: 1rem;
   font-size: 0.5rem;
 `;
-
-const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const { isFetching, error } = useSelector((state) => state.user);
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    login(dispatch, { username, password });
-  };
-
-  return (
-    <Container>
-      <Announcement />
-      <Navbar />
-      <LoginContainer>
-        <Left>
-          <Title>already a member?</Title>
-          <Form>
-            <Input
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
-            ></Input>
-            <Input
-              placeholder="Password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            ></Input>
-            <StyledLink to={"/"}>Forgot password?</StyledLink>
-            <Button onClick={handleClick} disabled={isFetching}>
-              Login
-            </Button>
-            {error && (
-              <Error>
-                Your email address and password combination do not match any of
-                our accounts.
-              </Error>
-            )}
-          </Form>
-        </Left>
-        <Right>
-          <Image src={require("../images/IMG_5826.png")} />
-          <InfoContainer>
-            <JoinHeader>join and get all the benefits</JoinHeader>
-            <JoinDesc>
-              As a Jewellery Quest member, you can enjoy free shipping, birthday
-              discount, easy checkout, exclusive offers, special treats, and
-              much more.
-            </JoinDesc>
-            <Button>Become a Member</Button>
-          </InfoContainer>
-        </Right>
-      </LoginContainer>
-      <Newsletter />
-    </Container>
-  );
-};
-
-export default Login;

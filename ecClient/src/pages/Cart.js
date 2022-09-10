@@ -262,7 +262,14 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
-  margin-left: 30%;
+  background-color: black;
+  color: white;
+  width: 250px;
+  height: 40px;
+  border-style: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-left: 15%;
 `;
 
 const PayMethodsSummary = styled.div`
