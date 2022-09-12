@@ -9,6 +9,107 @@ import { publicRequest } from "../requestMethod";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
+const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+        setProduct(res.data);
+      } catch (err) {}
+    };
+    getProduct();
+  }, [id]);
+
+  const changeQuantity = (type) => {
+    if (type === "minus") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(
+      addProduct({
+        ...product,
+        quantity,
+        size: size === "" ? product.size[0] : size,
+        color: color === "" ? product.color[0] : color,
+      })
+    );
+  };
+
+  return (
+    <Container>
+      <Announcement />
+      <Navbar />
+      <Wrapper>
+        <ImageContainer>
+          <img
+            style={{ height: "520px", width: "520px" }}
+            src={product.img}
+            alt="product image"
+          />
+        </ImageContainer>
+        <InfoContainer>
+          <Header>{product.title}</Header>
+          <ProductInfo>{product.desc}</ProductInfo>
+          <Price>{`$ ${product.price}`}</Price>
+
+          <Select onChange={(e) => setColor(e.target.value)}>
+            {product.color?.map((c) => (
+              <Option key={c}>{c}</Option>
+            ))}
+          </Select>
+
+          <Select onChange={(e) => setSize(e.target.value)}>
+            {product.size?.map((s) => (
+              <Option key={s}>{s}</Option>
+            ))}
+          </Select>
+
+          <AddContainer>
+            <Remove onClick={() => changeQuantity("minus")} />
+            <Amount>{quantity}</Amount>
+            <Add onClick={() => changeQuantity("add")} />
+          </AddContainer>
+          <Button onClick={handleClick}>Add to Cart</Button>
+        </InfoContainer>
+      </Wrapper>
+
+      <ShippingInfoContainer>
+        <ShippingInfo>
+          <Title>Gift-giving made easy</Title>
+          <Desc>
+            Create your personalised message at the checkout, then we’ll pack
+            your gifts for you (and remove the price tags!).
+          </Desc>
+        </ShippingInfo>
+        <ShippingInfo>
+          <Title>1-2 days shipping</Title>
+          <Desc>
+            Enjoy FREE shipping for order over $500. – it’s automatically
+            applied to your order during checkout. We will process orders Monday
+            to Saturday except Sunday and Public Holiday.
+          </Desc>
+        </ShippingInfo>
+      </ShippingInfoContainer>
+
+      <Newsletter />
+    </Container>
+  );
+};
+
+export default Product;
+
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -116,104 +217,3 @@ const ShippingInfo = styled.div`
 const Title = styled.h3``;
 
 const Desc = styled.div``;
-
-const Product = () => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get("/products/find/" + id);
-        setProduct(res.data);
-      } catch (err) {}
-    };
-    getProduct();
-  }, [id]);
-
-  const changeQuantity = (type) => {
-    if (type === "minus") {
-      quantity > 1 && setQuantity(quantity - 1);
-    } else {
-      setQuantity(quantity + 1);
-    }
-  };
-
-  const handleClick = () => {
-    dispatch(
-      addProduct({
-        ...product,
-        quantity,
-        size: size === "" ? product.size[0] : size,
-        color: color === "" ? product.color[0] : color,
-      })
-    );
-  };
-
-  return (
-    <Container>
-      <Announcement />
-      <Navbar />
-      <Wrapper>
-        <ImageContainer>
-          <img
-            style={{ height: "520px", width: "520px" }}
-            src={product.img}
-            alt="product image"
-          />
-        </ImageContainer>
-        <InfoContainer>
-          <Header>{product.title}</Header>
-          <ProductInfo>{product.desc}</ProductInfo>
-          <Price>{`$ ${product.price}`}</Price>
-
-          <Select onChange={(e) => setColor(e.target.value)}>
-            {product.color?.map((c) => (
-              <Option key={c}>{c}</Option>
-            ))}
-          </Select>
-
-          <Select onChange={(e) => setSize(e.target.value)}>
-            {product.size?.map((s) => (
-              <Option key={s}>{s}</Option>
-            ))}
-          </Select>
-
-          <AddContainer>
-            <Remove onClick={() => changeQuantity("minus")} />
-            <Amount>{quantity}</Amount>
-            <Add onClick={() => changeQuantity("add")} />
-          </AddContainer>
-          <Button onClick={handleClick}>Add to Cart</Button>
-        </InfoContainer>
-      </Wrapper>
-
-      <ShippingInfoContainer>
-        <ShippingInfo>
-          <Title>Gift-giving made easy</Title>
-          <Desc>
-            Create your personalised message at the checkout, then we’ll pack
-            your gifts for you (and remove the price tags!).
-          </Desc>
-        </ShippingInfo>
-        <ShippingInfo>
-          <Title>1-2 days shipping</Title>
-          <Desc>
-            Enjoy FREE shipping for order over $500. – it’s automatically
-            applied to your order during checkout. We will process orders Monday
-            to Saturday except Sunday and Public Holiday.
-          </Desc>
-        </ShippingInfo>
-      </ShippingInfoContainer>
-
-      <Newsletter />
-    </Container>
-  );
-};
-
-export default Product;

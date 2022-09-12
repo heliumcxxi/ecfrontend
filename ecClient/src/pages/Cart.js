@@ -5,9 +5,12 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useSelector } from "react-redux";
 import { PayMethods } from "../data";
+import { removeProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   const checkOut = () => {
     fetch(`${process.env.REACT_APP_CLIENT_URL}/checkout`, {
@@ -29,6 +32,10 @@ const Cart = () => {
       });
   };
 
+  const removeClick = (product) => {
+    dispatch(removeProduct(product));
+  };
+
   return (
     <>
       <Announcement />
@@ -46,7 +53,7 @@ const Cart = () => {
                   <ProductTitle>{product.title}</ProductTitle>
                   <ProductMaterial>{product.color}</ProductMaterial>
                   <ProductColor>{product.size}</ProductColor>
-                  <RemoveButton>
+                  <RemoveButton onClick={() => removeClick(product)}>
                     <DeleteOutline fontSize="small" />
                     Remove
                   </RemoveButton>
