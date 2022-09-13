@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useSelector } from "react-redux";
 import { PayMethods } from "../data";
-import { removeProduct } from "../redux/cartRedux";
+import { removeProduct, deleteProduct, addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
 const Cart = () => {
@@ -36,6 +36,14 @@ const Cart = () => {
     dispatch(removeProduct(product));
   };
 
+  const deleteClick = (product) => {
+    dispatch(deleteProduct(product));
+  };
+
+  const addClick = (product) => {
+    dispatch(addProduct(product));
+  };
+
   return (
     <>
       <Announcement />
@@ -53,17 +61,21 @@ const Cart = () => {
                   <ProductTitle>{product.title}</ProductTitle>
                   <ProductMaterial>{product.color}</ProductMaterial>
                   <ProductColor>{product.size}</ProductColor>
-                  <RemoveButton onClick={() => removeClick(product)}>
+                  <AltButton onClick={() => removeClick(product)}>
                     <DeleteOutline fontSize="small" />
                     Remove
-                  </RemoveButton>
+                  </AltButton>
                 </ProductInfo>
                 <ProductAmountInfo>
                   <ProductPrice>$ {product.price}</ProductPrice>
                   <ProductAmount>
-                    <Remove fontSize="small" />
+                    <AltButton onClick={() => deleteClick(product)}>
+                      <Remove fontSize="small" />
+                    </AltButton>
                     <Amount>{product.quantity}</Amount>
-                    <Add fontSize="small" />
+                    <AltButton onClick={() => addClick(product)}>
+                      <Add fontSize="small" />
+                    </AltButton>
                   </ProductAmount>
                 </ProductAmountInfo>
               </Product>
@@ -216,7 +228,7 @@ const ProductColor = styled.span`
   color: grey;
 `;
 
-const RemoveButton = styled.a`
+const AltButton = styled.a`
   display: flex;
   align-items: center;
   font-size: 0.8rem;
@@ -242,6 +254,8 @@ const ProductAmount = styled.div`
   align-items: center;
   cursor: pointer;
 `;
+
+const QtyButton = styled.button``;
 
 const Amount = styled.div`
   padding: 1rem;

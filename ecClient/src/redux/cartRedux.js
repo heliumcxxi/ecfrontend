@@ -15,7 +15,10 @@ const cartSlice = createSlice({
       );
       // if product in cart, add to the same group
       if (itemIdx >= 0) {
-        state.products[itemIdx].quantity += 1;
+        state.products[itemIdx] = {
+          ...state.products[itemIdx],
+          quantity: state.products[itemIdx].quantity + 1,
+        };
       }
       // if not, add a new product
       else {
@@ -28,6 +31,21 @@ const cartSlice = createSlice({
       state.quantity += action.payload.quantity;
       state.total += action.payload.price * action.payload.quantity;
     },
+    deleteProduct: (state, action) => {
+      const itemIdx = state.products.findIndex(
+        (item) => item._id === action.payload._id
+      );
+
+      if (state.products[itemIdx]?.quantity > 1) {
+        state.products[itemIdx].quantity -= 1;
+      } else if (state.products[itemIdx]?.quantity === 1) {
+        const newCartList = state.products.filter(
+          (item) => item._id !== action.payload._id
+        );
+        state.products = newCartList;
+        return state;
+      }
+    },
     removeProduct: (state, action) => {
       const newCartList = state.products.filter(
         (item) => item._id !== action.payload._id
@@ -38,5 +56,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct } = cartSlice.actions;
+export const { addProduct, removeProduct, deleteProduct } = cartSlice.actions;
 export default cartSlice.reducer;
