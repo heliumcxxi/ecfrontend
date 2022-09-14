@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -19,6 +20,7 @@ const cartSlice = createSlice({
           ...state.products[itemIdx],
           quantity: state.products[itemIdx].quantity + 1,
         };
+        toast.info("Added to cart", { position: "bottom-left" });
       }
       // if not, add a new product
       else {
@@ -27,9 +29,10 @@ const cartSlice = createSlice({
           quantity: 1,
         };
         state.products.push(newProduct);
+        toast.info("Added to cart", { position: "bottom-left" });
       }
-      state.quantity += action.payload.quantity;
-      state.total += action.payload.price * action.payload.quantity;
+      // state.quantity += action.payload.quantity;
+      // state.total += action.payload.price * action.payload.quantity;
     },
     deleteProduct: (state, action) => {
       const itemIdx = state.products.findIndex(
@@ -43,6 +46,7 @@ const cartSlice = createSlice({
           (item) => item._id !== action.payload._id
         );
         state.products = newCartList;
+        toast.info("Removed from the cart", { position: "bottom-left" });
         return state;
       }
     },
@@ -51,6 +55,7 @@ const cartSlice = createSlice({
         (item) => item._id !== action.payload._id
       );
       state.products = newCartList;
+      toast.info("Removed from the cart", { position: "bottom-left" });
       return state;
     },
   },
