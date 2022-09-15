@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { publicRequest } from "../requestMethod";
 import { addProduct } from "../redux/cartRedux";
@@ -15,7 +15,9 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
+  const [colorToSend, setColorToSend] = useState("");
   const [size, setSize] = useState("");
+  const [sizeToSend, setSizeToSend] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +29,9 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  useEffect(() => setColorToSend(color), [color]);
+  useEffect(() => setSizeToSend(size), [size]);
 
   const changeQuantity = (type) => {
     if (type === "minus") {
@@ -41,8 +46,9 @@ const Product = () => {
       addProduct({
         ...product,
         quantity,
-        size: size === "" ? product.size[0] : size,
-        color: color === "" ? product.color[0] : color,
+        size: sizeToSend === "" ? product.size[0] : sizeToSend,
+        color: colorToSend === "" ? product.color[0] : colorToSend,
+        // updated addProduct in cartRedux
       })
     );
   };
@@ -69,13 +75,11 @@ const Product = () => {
               <Option key={c}>{c}</Option>
             ))}
           </Select>
-
           <Select onChange={(e) => setSize(e.target.value)}>
             {product.size?.map((s) => (
               <Option key={s}>{s}</Option>
             ))}
           </Select>
-
           <AddContainer>
             <Remove onClick={() => changeQuantity("minus")} />
             <Amount>{quantity}</Amount>

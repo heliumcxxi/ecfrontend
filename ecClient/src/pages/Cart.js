@@ -1,4 +1,4 @@
-import { Add, DeleteOutline, Remove, WhatsApp } from "@mui/icons-material";
+import { Add, DeleteOutline, Remove } from "@mui/icons-material";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Navbar from "../components/Navbar";
