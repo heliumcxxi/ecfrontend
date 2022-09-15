@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Badge } from "@mui/material";
-import { SearchOutlined, ShoppingCartOutlined } from "@mui/icons-material";
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
