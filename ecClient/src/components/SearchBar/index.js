@@ -67,7 +67,7 @@ function SearchBar({ placeholder }) {
         <div className="search-result">
           {/* limit search result up to 5 to reduce data load */}
           {filteredData.slice(0, 5).map((value) => {
-            return <p>{value.title}</p>;
+            return <p key={value.id}>{value.title}</p>;
           })}
         </div>
       )}
