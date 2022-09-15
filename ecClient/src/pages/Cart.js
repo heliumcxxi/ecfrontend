@@ -5,22 +5,12 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useSelector } from "react-redux";
 import { PayMethods } from "../data";
-import {
-  removeProduct,
-  deleteProduct,
-  addProduct,
-  getTotal,
-} from "../redux/cartRedux";
+import { removeProduct, deleteProduct, addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTotal());
-  }, [cart, dispatch]);
 
   const checkOut = () => {
     fetch(`${process.env.REACT_APP_CLIENT_URL}/checkout`, {

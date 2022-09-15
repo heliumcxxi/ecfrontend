@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import { Badge } from "@mui/material";
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
+import { useEffect } from "react";
+import { getTotal } from "../redux/cartRedux";
 
 const Navbar = () => {
-  const quantity = useSelector((state) => state.cart.quantity);
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTotal());
+  }, [cart, dispatch]);
 
   return (
     <Container>
@@ -26,7 +33,7 @@ const Navbar = () => {
         </MenuItem>
         <MenuItem>
           <StyledLink to="/cart">
-            <Badge badgeContent={quantity} color="primary">
+            <Badge badgeContent={cart.quantity} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </StyledLink>
