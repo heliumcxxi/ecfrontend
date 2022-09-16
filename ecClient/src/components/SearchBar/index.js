@@ -71,7 +71,7 @@ function SearchBar({ placeholder }) {
             return (
               <a
                 key={uuidv4()}
-                href={`${process.env.REACT_APP_CLIENT_URL}/product/${value._id}`}
+                href={`${process.env.FRONTEND_URL}/product/${value._id}`}
                 target="_blank"
               >
                 {value.title}
