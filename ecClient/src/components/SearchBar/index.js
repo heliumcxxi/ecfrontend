@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SearchOutlined } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 function SearchBar({ placeholder }) {
   const [data, setData] = useState([]);
@@ -67,7 +68,15 @@ function SearchBar({ placeholder }) {
         <div className="search-result">
           {/* limit search result up to 5 to reduce data load */}
           {filteredData.slice(0, 5).map((value) => {
-            return <p>{value.title}</p>;
+            return (
+              <a
+                key={uuidv4()}
+                href={`${process.env.REACT_APP_CLIENT_URL}/product/${value._id}`}
+                target="_blank"
+              >
+                {value.title}
+              </a>
+            );
           })}
         </div>
       )}

@@ -16,8 +16,15 @@ const cartSlice = createSlice({
       const itemIdx = state.products.findIndex(
         (item) => item._id === action.payload._id
       );
-      // if product in cart, add to the same group
-      if (itemIdx >= 0) {
+      const matchedItem = state.products.find(
+        (item) =>
+          item.color === action.payload.color &&
+          item.size === action.payload.size
+      );
+
+      // if product in cart, with same color and size, add to the same group
+      // not completed yet
+      if (itemIdx >= 0 && matchedItem) {
         state.products[itemIdx] = {
           ...state.products[itemIdx],
           quantity: (state.products[itemIdx].quantity += 1),
