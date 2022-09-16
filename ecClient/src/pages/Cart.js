@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { PayMethods } from "../data";
 import { removeProduct, deleteProduct, addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -55,7 +56,7 @@ const Cart = () => {
         <BottomInfo>
           <Left>
             {cart.products.map((product) => (
-              <Product key={product._id}>
+              <Product key={uuidv4()}>
                 <ProductImg src={product.img} />
                 <ProductInfo>
                   <ProductTitle>{product.title}</ProductTitle>

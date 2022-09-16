@@ -46,8 +46,8 @@ const Product = () => {
       addProduct({
         ...product,
         quantity,
-        size: sizeToSend === "" ? product.size[0] : sizeToSend,
         color: colorToSend === "" ? product.color[0] : colorToSend,
+        size: sizeToSend === "" ? product.size[0] : sizeToSend,
         // updated addProduct in cartRedux
       })
     );
