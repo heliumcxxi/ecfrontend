@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { useSelector } from "react-redux";
 import { PayMethods } from "../data";
-import { removeProduct, deleteProduct, addProduct } from "../redux/cartRedux";
+import { removeProduct, deleteProduct, plusProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
@@ -33,16 +33,16 @@ const Cart = () => {
       });
   };
 
-  const removeClick = (product) => {
-    dispatch(removeProduct(product));
+  const addClick = (product) => {
+    dispatch(plusProduct(product));
   };
 
   const deleteClick = (product) => {
     dispatch(deleteProduct(product));
   };
 
-  const addClick = (product) => {
-    dispatch(addProduct(product));
+  const removeClick = (product) => {
+    dispatch(removeProduct(product));
   };
 
   return (
@@ -218,7 +218,7 @@ const ProductMaterial = styled.span`
   margin-top: 0.5rem;
   margin-left: 0.5rem;
   color: grey;
-  text-transform: capitalize;
+  text-transform: uppercase;
 `;
 
 const ProductColor = styled.span`
@@ -227,6 +227,7 @@ const ProductColor = styled.span`
   margin-left: 0.5rem;
   padding-bottom: 1rem;
   color: grey;
+  text-transform: uppercase;
 `;
 
 const AltButton = styled.a`
