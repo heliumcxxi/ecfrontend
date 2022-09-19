@@ -12,62 +12,111 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      // check if product already in cart
-      const itemIdx = state.products.findIndex(
-        (item) => item._id === action.payload._id
+      // check item is in cart, first name the new item and sort if same item with exact attribute is in cart
+      const newItem = action.payload;
+      const duplicate = state.products.filter(
+        (e) =>
+          e.title === newItem.title &&
+          e.color === newItem.color &&
+          e.size === newItem.size
       );
-      const matchedItem = state.products.find(
-        (item) =>
-          item.color === action.payload.color &&
-          item.size === action.payload.size
-      );
-
-      // if product in cart, with same color and size, add to the same group
-      // not completed yet
-      if (itemIdx >= 0 && matchedItem) {
-        state.products[itemIdx] = {
-          ...state.products[itemIdx],
-          quantity: (state.products[itemIdx].quantity += 1),
-        };
+      // if in cart, find the exact attribute product and add quantity
+      if (duplicate.length > 0) {
+        state.products = state.products.filter(
+          (e) =>
+            e.title !== newItem.title ||
+            e.color !== newItem.color ||
+            e.size !== newItem.size
+        );
+        state.products = [
+          ...state.products,
+          {
+            ...newItem,
+            quantity: newItem.quantity + duplicate[0].quantity,
+          },
+        ];
+        toast.success("Added to your cart", { position: "bottom-left" });
+        // if not in cart, add new product
+      } else {
+        state.products.push(newItem);
         toast.success("Added to your cart", { position: "bottom-left" });
       }
-      // if not, add a new product
-      else {
-        const newProduct = {
-          ...action.payload,
-          quantity: 1,
-        };
-        state.products.push(newProduct);
-        toast.success("Added to your cart", { position: "bottom-left" });
+      localStorage.setItem(
+        "products",
+        JSON.stringify(state.products.sort((a, b) => (a.id > b.id ? 1 : 0)))
+      );
+    },
+    plusProduct: (state, action) => {
+      const newItem = action.payload;
+      const item = state.products.filter(
+        (e) =>
+          e.title === newItem.title &&
+          e.color === newItem.color &&
+          e.size === newItem.size
+      );
+      if (item.length > 0) {
+        state.products = state.products.filter(
+          (e) =>
+            e.title !== newItem.title ||
+            e.color !== newItem.color ||
+            e.size !== newItem.size
+        );
+        state.products = [
+          ...state.products,
+          {
+            ...newItem,
+            quantity: newItem.quantity + 1,
+          },
+        ];
       }
-      localStorage.setItem("products", JSON.stringify(state.products));
+      localStorage.setItem(
+        "products",
+        JSON.stringify(state.products.sort((a, b) => (a.id > b.id ? 1 : 0)))
+      );
     },
     deleteProduct: (state, action) => {
-      const itemIdx = state.products.findIndex(
-        (item) => item._id === action.payload._id
+      const newItem = action.payload;
+      const item = state.products.filter(
+        (e) =>
+          e.title === newItem.title &&
+          e.color === newItem.color &&
+          e.size === newItem.size
       );
-
-      if (state.products[itemIdx]?.quantity > 1) {
-        state.products[itemIdx].quantity -= 1;
-      } else if (state.products[itemIdx]?.quantity === 1) {
-        const newCartList = state.products.filter(
-          (item) => item._id !== action.payload._id
+      if (item.length > 0) {
+        state.products = state.products.filter(
+          (e) =>
+            e.title !== newItem.title ||
+            e.color !== newItem.color ||
+            e.size !== newItem.size
         );
-        state.products = newCartList;
-        toast.error("Removed from your cart", { position: "bottom-left" });
-        return state;
+        state.products = [
+          ...state.products,
+          {
+            ...newItem,
+            quantity: newItem.quantity - 1,
+          },
+        ];
       }
+      localStorage.setItem(
+        "products",
+        JSON.stringify(state.products.sort((a, b) => (a.id > b.id ? 1 : 0)))
+      );
     },
     removeProduct: (state, action) => {
-      const newCartList = state.products.filter(
-        (item) => item._id !== action.payload._id
+      const item = action.payload;
+      state.products = state.products.filter(
+        (e) =>
+          e.title !== item.title ||
+          e.color !== item.color ||
+          e.size !== item.size
       );
-      state.products = newCartList;
-      toast.error("Removed from your cart", { position: "bottom-left" });
-      return state;
+      localStorage.setItem(
+        "products",
+        JSON.stringify(state.products.sort((a, b) => (a.id > b.id ? 1 : 0)))
+      );
     },
     getTotal(state, action) {
-      // first extract newTotal and newQty from the cart
+      // first extract total price and quantity from the cart
       let { newTotal, newQty } = state.products.reduce(
         (total, product) => {
           const totalPrice = product.price * product.quantity;
@@ -89,6 +138,12 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct, deleteProduct, getTotal } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  updateProduct,
+  removeProduct,
+  deleteProduct,
+  plusProduct,
+  getTotal,
+} = cartSlice.actions;
 export default cartSlice.reducer;
